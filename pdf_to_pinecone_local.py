@@ -5,7 +5,7 @@ import fitz  # PyMuPDF
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from pinecone import Pinecone, ServerlessSpec
-from langchain_text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # ========= Settings =========
 DEFAULT_MAX_CHARS = 1000   # chunk size (smaller = better semantic coherence)

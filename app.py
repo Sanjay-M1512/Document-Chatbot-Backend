@@ -15,10 +15,16 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # ---- 1. Upload PDF & Process into Chunks ----
 @app.route("/upload_pdf", methods=["POST"])
 def upload_pdf():
-    if "file" not in request.files:
+
+    # Thunder Client sends file as a list
+    files = request.files.getlist("file")
+
+    # Validate file input
+    if not files or len(files) == 0:
         return jsonify({"error": "No file provided"}), 400
 
-    file = request.files["file"]
+    file = files[0]   # take the first file uploaded
+
     if file.filename == "":
         return jsonify({"error": "No file selected"}), 400
 
@@ -52,6 +58,7 @@ def ask():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
